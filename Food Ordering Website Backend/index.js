@@ -9,10 +9,11 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://food-ordering-website-opal.vercel.app"],
     credentials: true,
   }),
 );
+
 app.use(express.json());
 app.use(cookieParser());
 
