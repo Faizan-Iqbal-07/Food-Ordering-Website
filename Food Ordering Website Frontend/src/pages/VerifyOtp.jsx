@@ -13,7 +13,7 @@ const VerifyOtp = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "http://localhost:3000/api/verify-otp",
+        "https://food-ordering-website-9yle.onrender.com/api/verify-otp",
         {
           otp,
           newPassword: password,

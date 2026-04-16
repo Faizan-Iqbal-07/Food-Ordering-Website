@@ -10,7 +10,7 @@ const Navlist = ({ toggleNav, setToggleNav, auth }) => {
   const handleLogout = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/logout",
+        "https://food-ordering-website-9yle.onrender.com/api/logout",
       );
       dispatch(logout());
       toast.success(res.data.message);

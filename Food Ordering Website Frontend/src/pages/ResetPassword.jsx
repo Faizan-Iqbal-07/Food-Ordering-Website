@@ -11,7 +11,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "http://localhost:3000/api/reset-password",
+        "https://food-ordering-website-9yle.onrender.com/api/reset-password",
         {
           email,
         },

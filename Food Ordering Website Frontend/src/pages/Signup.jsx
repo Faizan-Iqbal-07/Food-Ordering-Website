@@ -13,7 +13,7 @@ const Signup = () => {
     e.preventDefault();
 
     const res = await axios.post(
-      "http://localhost:3000/api/signup",
+      "https://food-ordering-website-9yle.onrender.com/api/signup",
       {
         name,
         email,

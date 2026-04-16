@@ -14,7 +14,7 @@ const Success = () => {
 
   const clearCart = async () => {
     const res = await axios.get(
-      "http://localhost:3000/api/clear-cart",
+      "https://food-ordering-website-9yle.onrender.com/api/clear-cart",
     );
     const data = await res.data;
     toast.success(data.message);

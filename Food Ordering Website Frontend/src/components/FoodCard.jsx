@@ -12,7 +12,7 @@ const FoodCard = ({ id, name, price, desc, img, rating, handleToast }) => {
 
   const addToCart = async ({ id, name, img, price, rating, quantity }) => {
     const res = await axios.post(
-      `http://localhost:3000/api/add-to-cart/${user._id}`,
+      `https://food-ordering-website-9yle.onrender.com/api/add-to-cart/${user._id}`,
       {
         id,
         image: img,

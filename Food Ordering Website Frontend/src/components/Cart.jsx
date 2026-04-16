@@ -24,7 +24,7 @@ const Cart = () => {
   const checkout = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:3000/api/checkout",
+        "https://food-ordering-website-9yle.onrender.com/api/checkout",
       );
       const { url } = res.data;
       window.location.href = url;

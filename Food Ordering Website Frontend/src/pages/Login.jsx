@@ -16,7 +16,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/login",
+        "https://food-ordering-website-9yle.onrender.com/api/login",
         {
           email,
           password,

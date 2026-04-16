@@ -18,7 +18,7 @@ const Navbar = () => {
 
   const getUser = async () => {
     const res = await axios.get(
-      "http://localhost:3000/api/get-user",
+      "https://food-ordering-website-9yle.onrender.com/api/get-user",
       {
         withCredentials: true,
       },
