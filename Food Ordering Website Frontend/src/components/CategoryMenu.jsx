@@ -21,27 +21,45 @@ const CategoryMenu = () => {
   const selectedCategory = useSelector((state) => state.category.category);
 
   return (
-    <div className="ml-6">
-      <h3 className="text-xl font-semibold">Find the best food</h3>
-      <div className="my-5 flex gap-3 overflow-x-scroll scroll-smooth lg:overflow-x-hidden">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-2 animate-slide-up">
+      <div className="flex items-end justify-between mb-4">
+        <div>
+          <h3 className="text-2xl font-extrabold text-slate-800">
+            Explore Menu
+          </h3>
+          <p className="text-sm text-slate-400 mt-1">
+            Find the best food for your mood
+          </p>
+        </div>
+      </div>
+
+      <div className="flex gap-3 overflow-x-auto scroll-smooth scrollbar-hide pb-2">
         <button
           onClick={() => dispatch(setCategory("All"))}
-          className={`px-3 py-2 bg-gray-200 font-bold rounded-lg hover:bg-green-500 hover:text-white ${
-            selectedCategory === "All" && "bg-green-500 text-white"
-          }`}
+          className={`category-pill ${selectedCategory === "All" && "category-pill-active"}`}
         >
-          All
+          🍽️ All
         </button>
         {categories.map((category, index) => {
+          const emoji =
+            category === "Pizza"
+              ? "🍕"
+              : category === "Burger"
+                ? "🍔"
+                : category === "Pasta"
+                  ? "🍝"
+                  : category === "Salad"
+                    ? "🥗"
+                    : category === "Dessert"
+                      ? "🍰"
+                      : "🍴";
           return (
             <button
               onClick={() => dispatch(setCategory(category))}
               key={index}
-              className={`px-3 py-2 bg-gray-200 font-bold rounded-lg hover:bg-green-500 hover:text-white ${
-                selectedCategory === category && "bg-green-500 text-white"
-              } `}
+              className={`category-pill ${selectedCategory === category && "category-pill-active"}`}
             >
-              {category}
+              {emoji} {category}
             </button>
           );
         })}

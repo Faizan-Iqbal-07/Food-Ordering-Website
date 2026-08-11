@@ -4,6 +4,7 @@ import axios from "axios";
 import { loginUser } from "../redux/slices/AuthSlice";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import AuthLayout from "../components/AuthLayout";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,17 +18,12 @@ const Login = () => {
     try {
       const res = await axios.post(
         "https://food-ordering-website-9yle.onrender.com/api/login",
-        {
-          email,
-          password,
-        },
+        { email, password },
       );
-
-      const data = res.data;
 
       if (res.status === 200) {
         dispatch(loginUser());
-        toast.success(data.message);
+        toast.success(res.data.message);
         navigate("/");
       }
     } catch (error) {
@@ -36,56 +32,63 @@ const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form
-        onSubmit={handleLogin}
-        className="bg-white rounded-lg p-5 shadow-lg flex flex-col gap-3 w-[80vw] lg:w-[20vw] text-sm"
-      >
-        <input
-          type="email"
-          name="email"
-          id="email"
-          className="outline-none border rounded-md px-3 py-2 focus:border-green-300 text-gray-600"
-          autoComplete="off"
-          placeholder="Enter Your Email"
-          required
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+    <AuthLayout
+      title="Welcome back"
+      subtitle="Sign in to continue ordering delicious food"
+      footer={
+        <>
+          Don't have an account?{" "}
+          <Link to="/signup" className="text-brand-600 font-semibold hover:underline">
+            Sign up
+          </Link>
+        </>
+      }
+    >
+      <form onSubmit={handleLogin} className="flex flex-col gap-4">
+        <div>
+          <label htmlFor="email" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            className="input-field"
+            autoComplete="off"
+            placeholder="you@example.com"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+        </div>
 
-        <input
-          type="password"
-          name="password"
-          id="password"
-          className="outline-none border rounded-md px-3 py-2 focus:border-green-300 text-gray-600"
-          autoComplete="off"
-          placeholder="**********"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <div>
+          <label htmlFor="password" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="input-field"
+            autoComplete="off"
+            placeholder="••••••••"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
 
         <Link
           to="/forgot-password"
-          className="text-xs text-gray-600 hover:underline cursor-pointer -mb-1 "
+          className="text-xs text-brand-600 font-semibold hover:underline -mt-1 self-end"
         >
-          Forgot Password
+          Forgot password?
         </Link>
 
-        <button
-          type="submit"
-          className="border outline-none rounded-md px-3 py-2 text-white bg-green-500 hover:bg-green-300"
-        >
-          Login
+        <button type="submit" className="btn-primary w-full !py-3 mt-1">
+          Sign In
         </button>
-        <p className="text-xs text-gray-600 flex gap-2 -mt-1 ">
-          <span>or</span>
-          <Link to="/signup" className="hover:text-green-600">
-            Create your account
-          </Link>
-        </p>
       </form>
-    </div>
+    </AuthLayout>
   );
 };
 

@@ -2,68 +2,86 @@ import React from "react";
 import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-
 import { toast } from "react-hot-toast";
 import axios from "axios";
 import { getCart } from "../helper";
 import { setCart } from "../redux/slices/CartSlice";
 
-const ItemCard = ({ id, name, quantity, price, image, _id }) => {
+const ItemCard = ({ name, quantity, price, image, _id }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
+
+  const refreshCart = () => {
+    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+  };
 
   const removeFromCart = async (id) => {
     const res = await axios.delete(
       `https://food-ordering-website-9yle.onrender.com/api/remove-from-cart/${id}`,
     );
-    const data = res.data;
-    toast.success(data.message);
-    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+    toast.success(res.data.message);
+    refreshCart();
   };
 
   const incrementQuantity = async (id) => {
-    const res = await axios.put(
+    await axios.put(
       `https://food-ordering-website-9yle.onrender.com/api/increment-quantity/${id}`,
     );
-    const data = res.data;
-    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+    refreshCart();
   };
 
   const decrementQuantity = async (id) => {
-    const res = await axios.put(
+    await axios.put(
       `https://food-ordering-website-9yle.onrender.com/api/decrement-quantity/${id}`,
     );
-    const data = res.data;
-    getCart(user).then((data) => dispatch(setCart(data.cartItems)));
+    refreshCart();
   };
 
   return (
-    <div className="flex gap-2 shadow-md rounded-lg p-2 mb-3">
-      <MdDelete
-        onClick={() => {
-          removeFromCart(_id);
-        }}
-        className="absolute right-7 text-gray-600 cursor-pointer"
+    <div className="relative flex gap-4 bg-white border border-slate-100 rounded-2xl p-3 mb-3 shadow-sm hover:shadow-md transition-shadow">
+      <img
+        src={image}
+        alt={name}
+        className="w-16 h-16 rounded-xl object-cover shrink-0"
       />
-      <img src={image} alt="" className="w-[50px] h-[50px] " />
-      <div className="leading-5">
-        <h2 className="font-bold text-gray-800">{name}</h2>
-        <div className="flex justify-between ">
-          <span className="text-green-500 font-bold">${price}</span>
-          <div className="flex justify-center items-center gap-2 absolute right-7">
-            <AiOutlineMinus
-              onClick={() =>
-                quantity > 1 ? decrementQuantity(_id) : (quantity = 0)
-              }
-              className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none rounded-md p-1 text-xl transition-all ease-linear cursor-pointer"
-            />
-            <span>{quantity}</span>
-            <AiOutlinePlus
-              onClick={() =>
-                quantity >= 1 ? incrementQuantity(_id) : (quantity = 0)
-              }
-              className="border-2 border-gray-600 text-gray-600 hover:text-white hover:bg-green-500 hover:border-none rounded-md p-1 text-xl transition-all ease-linear cursor-pointer"
-            />
+
+      <div className="flex-1 min-w-0">
+        <div className="flex justify-between items-start gap-2">
+          <h3 className="font-bold text-slate-800 text-sm truncate">{name}</h3>
+          <button
+            onClick={() => removeFromCart(_id)}
+            className="shrink-0 p-1 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+            aria-label="Remove item"
+          >
+            <MdDelete className="text-lg" />
+          </button>
+        </div>
+
+        <p className="text-brand-600 font-extrabold text-sm mt-0.5">
+          ${price}
+        </p>
+
+        <div className="flex items-center justify-between mt-2">
+          <span className="text-xs text-slate-400 font-medium">
+            ${(price * quantity).toFixed(2)} total
+          </span>
+          <div className="flex items-center gap-2 bg-slate-100 rounded-xl px-1 py-0.5">
+            <button
+              onClick={() => quantity > 1 && decrementQuantity(_id)}
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-600 hover:bg-brand-500 hover:text-white transition-colors disabled:opacity-40"
+              disabled={quantity <= 1}
+            >
+              <AiOutlineMinus className="text-sm" />
+            </button>
+            <span className="text-sm font-bold text-slate-700 w-5 text-center">
+              {quantity}
+            </span>
+            <button
+              onClick={() => incrementQuantity(_id)}
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-600 hover:bg-brand-500 hover:text-white transition-colors"
+            >
+              <AiOutlinePlus className="text-sm" />
+            </button>
           </div>
         </div>
       </div>

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearch } from "../redux/slices/SearchSlice";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { MdClose } from "react-icons/md";
+import { IoSearchOutline } from "react-icons/io5";
 import Navlist from "./Navlist";
 import { setUser, loginUser } from "../redux/slices/AuthSlice";
 import { getCart } from "../helper";
@@ -37,40 +38,70 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className="flex flex-col lg:flex-row justify-between py-3 mx-6 mb-10">
-      <div>
-        <h3 className="text-xl font-bold text-gray-600">
-          {new Date().toUTCString().slice(0, 16)}
-        </h3>
-        <h1 className="text-2xl font-bold ">Faizan's Kitchen</h1>
+    <nav className="sticky top-0 z-40 bg-white/80 backdrop-blur-lg border-b border-slate-100 shadow-nav">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 min-w-0">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center shadow-md shadow-brand-500/30 shrink-0">
+            <span className="text-white text-lg font-extrabold">FK</span>
+          </div>
+          <div className="min-w-0">
+            <h1 className="text-xl font-extrabold text-slate-800 truncate">
+              Faizan's Kitchen
+            </h1>
+            <p className="text-xs text-slate-400 font-medium hidden sm:block">
+              Fresh food, fast delivery
+            </p>
+          </div>
+        </div>
+
+        <div className="relative flex-1 max-w-md hidden md:block">
+          <IoSearchOutline className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg pointer-events-none" />
+          <input
+            type="search"
+            name="search"
+            placeholder="Search dishes..."
+            autoComplete="off"
+            onChange={(e) => dispatch(setSearch(e.target.value))}
+            className="input-field pl-11 py-2.5 text-sm"
+          />
+        </div>
+
+        <div className="flex items-center gap-3">
+          {auth && user?.name && (
+            <span className="hidden lg:block text-sm font-semibold text-slate-600">
+              Hi, {user.name.split(" ")[0]} 👋
+            </span>
+          )}
+
+          <button
+            className="md:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors"
+            onClick={() => setToggleNav(!toggleNav)}
+            aria-label="Toggle menu"
+          >
+            {toggleNav ? (
+              <MdClose className="text-2xl text-slate-600" />
+            ) : (
+              <GiHamburgerMenu className="text-2xl text-slate-600" />
+            )}
+          </button>
+
+          <Navlist toggleNav={toggleNav} setToggleNav={setToggleNav} auth={auth} />
+        </div>
       </div>
-      <div>
-        <input
-          type="search"
-          name="search"
-          id=""
-          placeholder="Search here"
-          autoComplete="off"
-          onChange={(e) => dispatch(setSearch(e.target.value))}
-          className="p-3 border border-gray-400 text-sm rounded-lg outline-none w-full lg:w-[25vw]"
-        />
+
+      <div className="md:hidden px-4 pb-3">
+        <div className="relative">
+          <IoSearchOutline className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-lg pointer-events-none" />
+          <input
+            type="search"
+            name="search"
+            placeholder="Search dishes..."
+            autoComplete="off"
+            onChange={(e) => dispatch(setSearch(e.target.value))}
+            className="input-field pl-11 py-2.5 text-sm"
+          />
+        </div>
       </div>
-
-      <GiHamburgerMenu
-        className={`absolute top-5 right-5 lg:top-6 lg:right-8 text-2xl text-gray-600 cursor-pointer transition-all ease-in-out duration-500 ${toggleNav && "hidden"}`}
-        onClick={() => {
-          setToggleNav(true);
-        }}
-      />
-
-      <MdClose
-        className={`absolute top-5 right-5 lg:top-6 lg:right-8 text-2xl text-gray-600 cursor-pointer transition-all ease-in-out duration-500 ${!toggleNav && "hidden"}`}
-        onClick={() => {
-          setToggleNav(false);
-        }}
-      />
-
-      <Navlist toggleNav={toggleNav} setToggleNav={setToggleNav} auth={auth} />
     </nav>
   );
 };

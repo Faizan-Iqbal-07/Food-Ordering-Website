@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import { FaShoppingCart } from "react-icons/fa";
+import { HiOutlineShoppingBag } from "react-icons/hi";
 import ItemCard from "./ItemCard";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -35,49 +36,88 @@ const Cart = () => {
 
   return (
     <>
+      {activeCart && (
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300"
+          onClick={() => setActiveCart(false)}
+        />
+      )}
+
       <div
-        className={`fixed right-0 top-0 w-full lg:w-[20vw] h-full p-5 bg-white mb-3 ${
+        className={`fixed right-0 top-0 w-full sm:w-[400px] h-full bg-white z-50 flex flex-col shadow-2xl transition-transform duration-500 ease-in-out ${
           activeCart ? "translate-x-0" : "translate-x-full"
-        } transition-all duration-500 z-50`}
+        }`}
       >
-        <div className="flex justify-between items-center my-3">
-          <span className="text-xl font-bold text-gray-800">My Order</span>
-          <IoMdClose
-            onClick={() => setActiveCart(!activeCart)}
-            className="border-2 border-gray-600 text-gray-600 font-bold  p-1 text-xl  rounded-md hover:text-red-300 hover:border-red-300 cursor-pointer"
-          />
-        </div>
-
-        {cartItems.length > 0 ? (
-          cartItems.map((food) => {
-            return <ItemCard key={food.id} {...food} />;
-          })
-        ) : (
-          <h2 className="text-center text-xl font-bold text-gray-800">
-            Your cart is empty
-          </h2>
-        )}
-
-        <div className="absolute bottom-0 ">
-          <h3 className="font-semibold text-gray-800">Items : {totalQty}</h3>
-          <h3 className="font-semibold text-gray-800">
-            Total Amount : {totalPrice}
-          </h3>
-          <hr className="w-[90vw] lg:w-[18vw] my-2" />
+        <div className="flex justify-between items-center px-6 py-5 border-b border-slate-100">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-brand-50 flex items-center justify-center">
+              <HiOutlineShoppingBag className="text-brand-600 text-xl" />
+            </div>
+            <div>
+              <h2 className="text-lg font-extrabold text-slate-800">My Order</h2>
+              <p className="text-xs text-slate-400">{totalQty} items</p>
+            </div>
+          </div>
           <button
-            onClick={checkout}
-            className="bg-green-500 font-bold px-3 text-white py-2 rounded-lg w-[90vw] lg:w-[18vw] mb-5"
+            onClick={() => setActiveCart(false)}
+            className="w-9 h-9 rounded-xl border border-slate-200 flex items-center justify-center text-slate-500 hover:bg-red-50 hover:text-red-500 hover:border-red-200 transition-colors"
           >
-            Checkout
+            <IoMdClose className="text-xl" />
           </button>
         </div>
+
+        <div className="flex-1 overflow-y-auto px-6 py-4">
+          {cartItems.length > 0 ? (
+            cartItems.map((food) => <ItemCard key={food.id} {...food} />)
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full text-center py-16">
+              <div className="w-20 h-20 rounded-full bg-slate-100 flex items-center justify-center mb-4">
+                <FaShoppingCart className="text-3xl text-slate-300" />
+              </div>
+              <h3 className="text-lg font-bold text-slate-700 mb-2">
+                Your cart is empty
+              </h3>
+              <p className="text-sm text-slate-400 max-w-[200px]">
+                Add some delicious dishes to get started!
+              </p>
+            </div>
+          )}
+        </div>
+
+        {cartItems.length > 0 && (
+          <div className="border-t border-slate-100 px-6 py-5 bg-slate-50/50">
+            <div className="flex justify-between items-center mb-1">
+              <span className="text-sm text-slate-500">Subtotal ({totalQty} items)</span>
+              <span className="text-sm font-semibold text-slate-700">${totalPrice.toFixed(2)}</span>
+            </div>
+            <div className="flex justify-between items-center mb-4">
+              <span className="text-base font-bold text-slate-800">Total</span>
+              <span className="text-xl font-extrabold text-brand-600">${totalPrice.toFixed(2)}</span>
+            </div>
+            <button
+              onClick={checkout}
+              className="w-full btn-primary !py-3.5 text-base"
+            >
+              Proceed to Checkout
+            </button>
+          </div>
+        )}
       </div>
-      <FaShoppingCart
+
+      <button
         onClick={() => setActiveCart(!activeCart)}
-        className={`rounded-full bg-white shadow-md text-5xl p-3 fixed bottom-4 right-4 ${
-          totalQty > 0 && "animate-bounce delay-500 transition-all"
-        } `}
-      />
+        className={`fixed bottom-6 right-6 z-30 w-16 h-16 rounded-2xl bg-brand-500 text-white shadow-xl shadow-brand-500/30 flex items-center justify-center hover:bg-brand-600 hover:scale-105 active:scale-95 transition-all duration-200 ${
+          totalQty > 0 ? "animate-bounce" : ""
+        }`}
+        aria-label="Open cart"
+      >
+        <FaShoppingCart className="text-2xl" />
+        {totalQty > 0 && (
+          <span className="absolute -top-2 -right-2 w-7 h-7 bg-accent-500 text-white text-xs font-extrabold rounded-full flex items-center justify-center shadow-md border-2 border-white">
+            {totalQty}
+          </span>
+        )}
+      </button>
     </>
   );
 };
