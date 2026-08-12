@@ -13,7 +13,7 @@ const VerifyOtp = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "https://food-ordering-website-9yle.onrender.com/api/verify-otp",
+        "https://food-ordering-website-vujx.onrender.com/api/verify-otp",
         { otp, newPassword: password },
       );
       const data = res.data;
@@ -34,15 +34,18 @@ const VerifyOtp = () => {
       footer={
         <>
           Back to{" "}
-          <Link to="/login" className="text-brand-600 font-semibold hover:underline">
+          <Link
+            to="/login"
+            className="text-brand-600 font-semibold hover:underline">
             Sign in
           </Link>
         </>
-      }
-    >
+      }>
       <form onSubmit={handleVerifyOtp} className="flex flex-col gap-4">
         <div>
-          <label htmlFor="otp" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="otp"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             OTP Code
           </label>
           <input
@@ -58,7 +61,9 @@ const VerifyOtp = () => {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="password"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             New Password
           </label>
           <input

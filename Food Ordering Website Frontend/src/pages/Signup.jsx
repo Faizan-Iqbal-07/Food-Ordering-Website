@@ -14,7 +14,7 @@ const Signup = () => {
     e.preventDefault();
 
     const res = await axios.post(
-      "https://food-ordering-website-9yle.onrender.com/api/signup",
+      "https://food-ordering-website-vujx.onrender.com/api/signup",
       { name, email, password },
     );
 
@@ -35,15 +35,18 @@ const Signup = () => {
       footer={
         <>
           Already have an account?{" "}
-          <Link to="/login" className="text-brand-600 font-semibold hover:underline">
+          <Link
+            to="/login"
+            className="text-brand-600 font-semibold hover:underline">
             Sign in
           </Link>
         </>
-      }
-    >
+      }>
       <form onSubmit={handleSignup} className="flex flex-col gap-4">
         <div>
-          <label htmlFor="name" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="name"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             Full Name
           </label>
           <input
@@ -59,7 +62,9 @@ const Signup = () => {
         </div>
 
         <div>
-          <label htmlFor="email" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="email"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             Email
           </label>
           <input
@@ -75,7 +80,9 @@ const Signup = () => {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="password"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             Password
           </label>
           <input

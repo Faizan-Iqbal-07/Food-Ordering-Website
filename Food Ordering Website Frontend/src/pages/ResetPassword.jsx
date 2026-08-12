@@ -12,7 +12,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       const res = await axios.put(
-        "https://food-ordering-website-9yle.onrender.com/api/reset-password",
+        "https://food-ordering-website-vujx.onrender.com/api/reset-password",
         { email },
       );
       const data = res.data;
@@ -33,15 +33,18 @@ const ResetPassword = () => {
       footer={
         <>
           Remember your password?{" "}
-          <Link to="/login" className="text-brand-600 font-semibold hover:underline">
+          <Link
+            to="/login"
+            className="text-brand-600 font-semibold hover:underline">
             Sign in
           </Link>
         </>
-      }
-    >
+      }>
       <form onSubmit={handleResetPassword} className="flex flex-col gap-4">
         <div>
-          <label htmlFor="email" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="email"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             Email
           </label>
           <input

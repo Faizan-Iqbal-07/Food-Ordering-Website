@@ -14,7 +14,7 @@ const Success = () => {
 
   const clearCart = async () => {
     const res = await axios.get(
-      "https://food-ordering-website-9yle.onrender.com/api/clear-cart",
+      "https://food-ordering-website-vujx.onrender.com/api/clear-cart",
     );
     const data = await res.data;
     toast.success(data.message);
@@ -47,8 +47,7 @@ const Success = () => {
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
-              strokeWidth={2}
-            >
+              strokeWidth={2}>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -64,8 +63,7 @@ const Success = () => {
           </p>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 hover:bg-emerald-500 transition duration-200"
-          >
+            className="inline-flex items-center justify-center rounded-full bg-emerald-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-emerald-200 hover:bg-emerald-500 transition duration-200">
             Back to Home
           </a>
         </div>

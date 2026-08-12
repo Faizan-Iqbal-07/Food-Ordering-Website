@@ -17,7 +17,7 @@ const Login = () => {
 
     try {
       const res = await axios.post(
-        "https://food-ordering-website-9yle.onrender.com/api/login",
+        "https://food-ordering-website-vujx.onrender.com/api/login",
         { email, password },
       );
 
@@ -38,15 +38,18 @@ const Login = () => {
       footer={
         <>
           Don't have an account?{" "}
-          <Link to="/signup" className="text-brand-600 font-semibold hover:underline">
+          <Link
+            to="/signup"
+            className="text-brand-600 font-semibold hover:underline">
             Sign up
           </Link>
         </>
-      }
-    >
+      }>
       <form onSubmit={handleLogin} className="flex flex-col gap-4">
         <div>
-          <label htmlFor="email" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="email"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             Email
           </label>
           <input
@@ -62,7 +65,9 @@ const Login = () => {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
+          <label
+            htmlFor="password"
+            className="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">
             Password
           </label>
           <input
@@ -79,8 +84,7 @@ const Login = () => {
 
         <Link
           to="/forgot-password"
-          className="text-xs text-brand-600 font-semibold hover:underline -mt-1 self-end"
-        >
+          className="text-xs text-brand-600 font-semibold hover:underline -mt-1 self-end">
           Forgot password?
         </Link>
 

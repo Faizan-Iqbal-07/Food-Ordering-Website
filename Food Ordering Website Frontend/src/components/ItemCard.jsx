@@ -17,7 +17,7 @@ const ItemCard = ({ name, quantity, price, image, _id }) => {
 
   const removeFromCart = async (id) => {
     const res = await axios.delete(
-      `https://food-ordering-website-9yle.onrender.com/api/remove-from-cart/${id}`,
+      `https://food-ordering-website-vujx.onrender.com/api/remove-from-cart/${id}`,
     );
     toast.success(res.data.message);
     refreshCart();
@@ -25,14 +25,14 @@ const ItemCard = ({ name, quantity, price, image, _id }) => {
 
   const incrementQuantity = async (id) => {
     await axios.put(
-      `https://food-ordering-website-9yle.onrender.com/api/increment-quantity/${id}`,
+      `https://food-ordering-website-vujx.onrender.com/api/increment-quantity/${id}`,
     );
     refreshCart();
   };
 
   const decrementQuantity = async (id) => {
     await axios.put(
-      `https://food-ordering-website-9yle.onrender.com/api/decrement-quantity/${id}`,
+      `https://food-ordering-website-vujx.onrender.com/api/decrement-quantity/${id}`,
     );
     refreshCart();
   };
@@ -51,15 +51,12 @@ const ItemCard = ({ name, quantity, price, image, _id }) => {
           <button
             onClick={() => removeFromCart(_id)}
             className="shrink-0 p-1 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 transition-colors"
-            aria-label="Remove item"
-          >
+            aria-label="Remove item">
             <MdDelete className="text-lg" />
           </button>
         </div>
 
-        <p className="text-brand-600 font-extrabold text-sm mt-0.5">
-          ${price}
-        </p>
+        <p className="text-brand-600 font-extrabold text-sm mt-0.5">${price}</p>
 
         <div className="flex items-center justify-between mt-2">
           <span className="text-xs text-slate-400 font-medium">
@@ -69,8 +66,7 @@ const ItemCard = ({ name, quantity, price, image, _id }) => {
             <button
               onClick={() => quantity > 1 && decrementQuantity(_id)}
               className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-600 hover:bg-brand-500 hover:text-white transition-colors disabled:opacity-40"
-              disabled={quantity <= 1}
-            >
+              disabled={quantity <= 1}>
               <AiOutlineMinus className="text-sm" />
             </button>
             <span className="text-sm font-bold text-slate-700 w-5 text-center">
@@ -78,8 +74,7 @@ const ItemCard = ({ name, quantity, price, image, _id }) => {
             </span>
             <button
               onClick={() => incrementQuantity(_id)}
-              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-600 hover:bg-brand-500 hover:text-white transition-colors"
-            >
+              className="w-7 h-7 rounded-lg flex items-center justify-center text-slate-600 hover:bg-brand-500 hover:text-white transition-colors">
               <AiOutlinePlus className="text-sm" />
             </button>
           </div>

@@ -11,7 +11,7 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 app.use(
   cors({
-    origin: ["https://food-ordering-website-opal.vercel.app"],
+    origin: ["http://localhost:5173"],
     credentials: true,
   }),
 );

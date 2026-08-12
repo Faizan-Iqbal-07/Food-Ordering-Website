@@ -19,7 +19,7 @@ const Navbar = () => {
 
   const getUser = async () => {
     const res = await axios.get(
-      "https://food-ordering-website-9yle.onrender.com/api/get-user",
+      "https://food-ordering-website-vujx.onrender.com/api/get-user",
       {
         withCredentials: true,
       },
@@ -76,8 +76,7 @@ const Navbar = () => {
           <button
             className="md:hidden p-2 rounded-xl hover:bg-slate-100 transition-colors"
             onClick={() => setToggleNav(!toggleNav)}
-            aria-label="Toggle menu"
-          >
+            aria-label="Toggle menu">
             {toggleNav ? (
               <MdClose className="text-2xl text-slate-600" />
             ) : (
@@ -85,7 +84,11 @@ const Navbar = () => {
             )}
           </button>
 
-          <Navlist toggleNav={toggleNav} setToggleNav={setToggleNav} auth={auth} />
+          <Navlist
+            toggleNav={toggleNav}
+            setToggleNav={setToggleNav}
+            auth={auth}
+          />
         </div>
       </div>
 

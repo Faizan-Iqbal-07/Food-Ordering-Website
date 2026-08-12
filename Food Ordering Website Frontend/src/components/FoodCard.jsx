@@ -13,7 +13,7 @@ const FoodCard = ({ id, name, price, desc, img, rating }) => {
 
   const addToCart = async ({ id, name, img, price, rating, quantity }) => {
     const res = await axios.post(
-      `https://food-ordering-website-9yle.onrender.com/api/add-to-cart/${user._id}`,
+      `https://food-ordering-website-vujx.onrender.com/api/add-to-cart/${user._id}`,
       {
         id,
         image: img,
@@ -48,7 +48,9 @@ const FoodCard = ({ id, name, price, desc, img, rating }) => {
 
       <div className="p-5 flex flex-col gap-3">
         <div className="flex justify-between items-start gap-2">
-          <h2 className="font-bold text-slate-800 text-base leading-snug">{name}</h2>
+          <h2 className="font-bold text-slate-800 text-base leading-snug">
+            {name}
+          </h2>
           <span className="text-brand-600 font-extrabold text-lg shrink-0">
             ${price}
           </span>
@@ -64,8 +66,7 @@ const FoodCard = ({ id, name, price, desc, img, rating }) => {
               ? toast.error("Please Login to add items to cart")
               : addToCart({ id, name, img, price, rating, quantity: 1 });
           }}
-          className="mt-1 w-full flex items-center justify-center gap-2 btn-primary text-sm !py-2.5"
-        >
+          className="mt-1 w-full flex items-center justify-center gap-2 btn-primary text-sm !py-2.5">
           <FiShoppingCart className="text-base" />
           Add to Cart
         </button>
