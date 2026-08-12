@@ -11,7 +11,7 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["https://food-ordering-website-tau-lyart.vercel.app"],
     credentials: true,
   }),
 );
